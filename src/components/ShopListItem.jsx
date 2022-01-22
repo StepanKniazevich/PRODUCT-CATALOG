@@ -15,7 +15,7 @@ export default class ShopListItem extends Component {
         this.deleteItem = this.deleteItem.bind(this);
         this.priceItem = this.priceItem.bind(this);
         this.addCount = this.addCount.bind(this);
-        this.incCount = this.incCount.bind(this);
+        this.subCount = this.subCount.bind(this);
     }
 
     deleteItem(e) {
@@ -31,7 +31,7 @@ export default class ShopListItem extends Component {
 
 
     }
-    incCount() {
+    subCount() {
 
         if (this.state.count > 1) {
             this.setState(prevCount => ({
@@ -50,7 +50,7 @@ export default class ShopListItem extends Component {
         this.setState({
             price: this.props.shopListItem.price * count
         })
-        console.log('ADDDDDD')
+
 
 
     }
@@ -77,7 +77,7 @@ export default class ShopListItem extends Component {
                     <Card.Text>Ціна: {this.props.shopListItem.price}</Card.Text>
                     <p><ButtonGroup size="sm">
                         <Button variant="success" onClick={this.addCount}>+</Button>
-                        <Button variant="danger" onClick={this.incCount}>-</Button>
+                        <Button variant="danger" onClick={this.subCount}>-</Button>
                     </ButtonGroup><br /><Card.Text>Кількість:{this.state.count} </Card.Text>
                         <Card.Title>Cума: {this.state.price} </Card.Title> </p>
                     <Button variant="danger" onClick={this.deleteItem}>Видалити</Button>
