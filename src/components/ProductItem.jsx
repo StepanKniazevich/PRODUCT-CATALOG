@@ -14,7 +14,7 @@ export default class ProductItem extends Component {
     addGoods(e) {
         this.props.addGoods(this.props.product.id);
         this.setCheckedGoods();
-        console.log(this.state.checkedGoods)
+
     }
 
     setCheckedGoods() {
