@@ -42,18 +42,12 @@ export default class ShopListItem extends Component {
         }
 
     }
-
-
-
     priceItem(count) {
-
-        this.setState({
-            price: this.props.shopListItem.price * count
-        })
-
-
+        const priceItem = this.state.price * count;
+        this.props.priceItem(priceItem, this.props.index)
 
     }
+
     componentDidUpdate() {
         if (this.state.shouldShangePrice) {
             this.priceItem(this.state.count);
@@ -74,12 +68,12 @@ export default class ShopListItem extends Component {
             <Card border="danger" style={{ width: '18rem' }}>
                 <Card.Header><h4>{this.props.shopListItem.name}</h4></Card.Header>
                 <Card.Body>
-                    <Card.Text>Ціна: {this.props.shopListItem.price}</Card.Text>
+                    <Card.Text>Ціна: {this.state.price}</Card.Text>
                     <p><ButtonGroup size="sm">
                         <Button variant="success" onClick={this.addCount}>+</Button>
                         <Button variant="danger" onClick={this.subCount}>-</Button>
                     </ButtonGroup><br /><Card.Text>Кількість:{this.state.count} </Card.Text>
-                        <Card.Title>Cума: {this.state.price} </Card.Title> </p>
+                        <Card.Title>Cума: {this.props.shopListItem.price} </Card.Title> </p>
                     <Button variant="danger" onClick={this.deleteItem}>Видалити</Button>
                 </Card.Body>
             </Card>

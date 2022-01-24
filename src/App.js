@@ -16,6 +16,8 @@ export default class App extends React.Component {
     }
     this.addGoods = this.addGoods.bind(this);
     this.deleteItem = this.deleteItem.bind(this);
+    this.setIsShoppingCard = this.setIsShoppingCard.bind(this);
+    this.priceItem = this.priceItem.bind(this);
 
   }
 
@@ -23,26 +25,36 @@ export default class App extends React.Component {
 
     this.setState(prevState =>
     ({
-      addgoods: prevState.addGoods.push(...this.state.database.filter((item, index) => { return goodsId === this.state.database[index].id }))
+      addGoods: [...prevState.addGoods, ...this.state.database.filter((item, index) => {
+        return goodsId === this.state.database[index].id
+      })]
     }));
-
+    this.setIsShoppingCard(goodsId, true);
 
   }
 
   deleteItem(goodsId, index) {
 
-    const product = this.state.database;
     this.setState(prevState =>
     ({
       addgoods: prevState.addGoods.splice(index, 1)
 
     }));
-
-    product.filter(item => { return item.id === goodsId })[0].isInShoppingCart = false
-
-
-
+    this.setIsShoppingCard(goodsId, false)
   }
+
+
+  setIsShoppingCard(goodsId, condition) {
+
+    this.state.database.filter(item => { return item.id === goodsId })[0].isInShoppingCart = condition;
+  }
+
+
+  priceItem(priceItem, index) {
+    this.state.addGoods[index].price = priceItem;
+  }
+
+
 
   componentDidMount() {
     fetch('https://api.ifcityevent.com/products')
@@ -60,7 +72,7 @@ export default class App extends React.Component {
       <div className="product-catalog">
 
         <div className={"product-item"}><ProductList database={this.state.database} addGoods={this.addGoods} key={this.state.database.id} /></div>
-        <ShopList shopList={this.state.addGoods} deleteItem={this.deleteItem} />
+        <ShopList shopList={this.state.addGoods} deleteItem={this.deleteItem} priceItem={this.priceItem} />
       </div>
     );
   }

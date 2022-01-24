@@ -10,11 +10,11 @@ export default class ShopList extends Component {
             totalPrice: 0
         };
         this.deleteItem = this.deleteItem.bind(this);
-        this.totalPrice = this.totalPrice.bind(this);
+        this.priceItem = this.priceItem.bind(this);
     }
 
-    totalPrice() {
-
+    priceItem(priceItem, index) {
+        this.props.priceItem(priceItem, index)
     }
 
     deleteItem(goodsId, index) {
@@ -26,7 +26,7 @@ export default class ShopList extends Component {
         return (<div className={"shopList"}>
             <h2>Shoping list: </h2>{
                 this.props.shopList.map((item, index) => <ShopListItem shopListItem={item}
-                    deleteItem={this.deleteItem} index={index} totalPrice={this.totalPrice} />)
+                    deleteItem={this.deleteItem} index={index} priceItem={this.priceItem} />)
 
             }</div>);
     }
