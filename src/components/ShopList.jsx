@@ -1,14 +1,13 @@
 import React, { Component } from 'react'
 import ShopListItem from './ShopListItem'
+import { Badge } from 'react-bootstrap'
+
+
+
 
 export default class ShopList extends Component {
-
     constructor(props) {
         super(props);
-        this.state = {
-
-            totalPrice: 0
-        };
         this.deleteItem = this.deleteItem.bind(this);
         this.priceItem = this.priceItem.bind(this);
     }
@@ -22,12 +21,27 @@ export default class ShopList extends Component {
     }
 
     render() {
-        console.log(this.props.shopList);
-        return (<div className={"shopList"}>
-            <h2>Shoping list: </h2>{
-                this.props.shopList.map((item, index) => <ShopListItem shopListItem={item}
-                    deleteItem={this.deleteItem} index={index} priceItem={this.priceItem} />)
+        const showShopList = () => {
+            return (
+                <> {
+                    this.props.shopList.map((item, index) => <ShopListItem shopListItem={item}
+                        deleteItem={this.deleteItem} index={index} priceItem={this.priceItem} />)}
+                </>
 
-            }</div>);
+
+            )
+        }
+
+
+        return (<div className={"shopList"} >
+            <>  <h2>{'Кошик:'}</h2>{
+                ((this.props.ifDataBaseExist) && (this.props.shopList.length === 0)) ?
+                    <Badge className={"empty-list"} bg="secondary">Корзина пуста </Badge> : (this.props.ifDataBaseExist) ?
+                        <> {showShopList()}
+                            <div className={"total-price"}><Badge bg="danger">Загальна ціна:  {this.props.totalPrice} </Badge></div>
+                        </> : ""
+            }</>
+        </div >)
     }
 }
+

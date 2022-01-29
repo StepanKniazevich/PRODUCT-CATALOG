@@ -6,22 +6,15 @@ export default class ProductItem extends Component {
 
     constructor(props) {
         super(props)
-
         this.addGoods = this.addGoods.bind(this);
-        this.setCheckedGoods = this.setCheckedGoods.bind(this);
     }
 
     addGoods(e) {
         this.props.addGoods(this.props.product.id);
-        this.setCheckedGoods();
-
     }
 
-    setCheckedGoods() {
-        this.props.product.isInShoppingCart = true;
-    }
+
     render() {
-
         return (
             <div>
                 <Card style={{ width: '18rem' }}>
@@ -34,7 +27,6 @@ export default class ProductItem extends Component {
                             <p>У корзині</p>
                             : <Button variant="primary" onClick={this.addGoods}>Купити</Button>
                         }
-
                     </Card.Body>
                 </Card>
             </div>

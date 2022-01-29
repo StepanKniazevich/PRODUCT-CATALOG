@@ -14,22 +14,28 @@ export default class App extends React.Component {
       database: [],
       addGoods: []
     }
+
     this.addGoods = this.addGoods.bind(this);
     this.deleteItem = this.deleteItem.bind(this);
     this.setIsShoppingCard = this.setIsShoppingCard.bind(this);
     this.priceItem = this.priceItem.bind(this);
-
   }
 
   addGoods(goodsId) {
 
+    let addGoodsItem = {}
+    for (let index = 0; index < this.state.database.length; index++) {
+      if (goodsId === this.state.database[index].id) {
+        addGoodsItem = Object.assign({}, this.state.database[index])
+      }
+    }
+
     this.setState(prevState =>
     ({
-      addGoods: [...prevState.addGoods, ...this.state.database.filter((item, index) => {
-        return goodsId === this.state.database[index].id
-      })]
+      addGoods: [...prevState.addGoods, addGoodsItem]
     }));
     this.setIsShoppingCard(goodsId, true);
+    this.totalPrice();
 
   }
 
@@ -38,23 +44,36 @@ export default class App extends React.Component {
     this.setState(prevState =>
     ({
       addgoods: prevState.addGoods.splice(index, 1)
-
     }));
     this.setIsShoppingCard(goodsId, false)
+    this.totalPrice();
   }
 
 
   setIsShoppingCard(goodsId, condition) {
-
-    this.state.database.filter(item => { return item.id === goodsId })[0].isInShoppingCart = condition;
+    const productList = this.state.database.map((product, index) => {
+      if (goodsId === product.id) {
+        product.isInShoppingCart = condition;
+      }
+      return product
+    })
+    console.log(productList)
+    this.setState({ database: productList })
   }
 
 
-  priceItem(priceItem, index) {
-    this.state.addGoods[index].price = priceItem;
+  priceItem(priceItem, indexWhereChange) {
+
+    const shoplist = this.state.addGoods.map((product, index) => {
+      if (index === indexWhereChange) {
+        product.price = priceItem;
+      }
+      return product
+    })
+    this.setState({
+      addGoods: [...shoplist]
+    })
   }
-
-
 
   componentDidMount() {
     fetch('https://api.ifcityevent.com/products')
@@ -67,12 +86,20 @@ export default class App extends React.Component {
   }
 
   render() {
+
+    const ifDataBaseExist = this.state.database.length === 0 ? false : true;
+
+    const totalPrice = () => this.state.addGoods.reduce((prevVal, item) => {
+      return prevVal + item.price
+    }, 0)
+
     return (
+      <div className="product-catalog" >
+        <ProductList database={this.state.database} addGoods={this.addGoods} key={this.state.database.id} />
+        <ShopList shopList={this.state.addGoods} deleteItem={this.deleteItem}
+          priceItem={this.priceItem} totalPrice={totalPrice()}
+          ifDataBaseExist={ifDataBaseExist} />
 
-      <div className="product-catalog">
-
-        <div className={"product-item"}><ProductList database={this.state.database} addGoods={this.addGoods} key={this.state.database.id} /></div>
-        <ShopList shopList={this.state.addGoods} deleteItem={this.deleteItem} priceItem={this.priceItem} />
       </div>
     );
   }

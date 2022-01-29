@@ -22,9 +22,11 @@ export default class ProductList extends Component {
 
     render() {
         return (
-            <><h2>Goods: </h2>{this.props.database.length ?
-                this.props.database.map(item => <ProductItem product={item} addGoods={this.addGoods} />)
-                : "Loading goods"}</>);
+            <div className="productList">
+                <h2>{'Товари:'}</h2>{
+                    this.props.database.length ?
+                        this.props.database.map(item => <ProductItem product={item} addGoods={this.addGoods} />)
+                        : "Зачекайте, будь ласка)..."}</div>);
     }
 }
 
