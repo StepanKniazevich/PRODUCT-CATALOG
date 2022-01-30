@@ -60,7 +60,7 @@ export default class ShopListItem extends Component {
 
         return (<div className={'shopList-item'}>
 
-            <Card border="danger" style={{ width: '18rem' }}>
+            <Card border="danger" style={{ width: '18rem' }} className={"shopListItem"} >
                 <Card.Header><b>{this.props.shopListItem.name}</b>
                     <ButtonGroup size="sm" className={"addNewItem"}>
                         <Button variant="success" onClick={this.addCount}>+</Button>

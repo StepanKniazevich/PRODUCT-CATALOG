@@ -39,8 +39,8 @@ export default class ShopList extends Component {
                     <Badge className={"empty-list"} bg="secondary">Корзина пуста </Badge> : (this.props.ifDataBaseExist) ?
                         <> {showShopList()}
                             <div className={"total-price"}><Badge bg="danger">Загальна ціна:  {this.props.totalPrice} </Badge></div>
-                        </> : ""
-            }</>
+                        </> : "" }
+              </>
         </div >)
     }
 }

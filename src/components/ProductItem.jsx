@@ -17,7 +17,7 @@ export default class ProductItem extends Component {
     render() {
         return (
             <div>
-                <Card style={{ width: '18rem' }}>
+                <Card style={{ width: '18rem' }} className={"productItem"}>
                     <Card.Body>
                         <Card.Title>{this.props.product.name}</Card.Title>
                         <Card.Text>
