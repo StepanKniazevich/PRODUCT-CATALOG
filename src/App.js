@@ -85,7 +85,6 @@ export default class App extends React.Component {
   render() {
 
     const ifDataBaseExist = this.state.database.length === 0 ? false : true;
-
     const totalPrice = () => this.state.addGoods.reduce((prevVal, item) => {
       return prevVal + item.price
     }, 0)
@@ -96,7 +95,6 @@ export default class App extends React.Component {
         <ShopList shopList={this.state.addGoods} deleteItem={this.deleteItem}
           priceItem={this.priceItem} totalPrice={totalPrice()}
           ifDataBaseExist={ifDataBaseExist} />
-
       </div>
     );
   }
