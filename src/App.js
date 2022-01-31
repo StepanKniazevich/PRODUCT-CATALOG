@@ -35,8 +35,6 @@ export default class App extends React.Component {
       addGoods: [...prevState.addGoods, addGoodsItem]
     }));
     this.setIsShoppingCard(goodsId, true);
-    this.totalPrice();
-
   }
 
   deleteItem(goodsId, index) {
@@ -46,7 +44,7 @@ export default class App extends React.Component {
       addgoods: prevState.addGoods.splice(index, 1)
     }));
     this.setIsShoppingCard(goodsId, false)
-    this.totalPrice();
+
   }
 
 
@@ -57,7 +55,6 @@ export default class App extends React.Component {
       }
       return product
     })
-    console.log(productList)
     this.setState({ database: productList })
   }
 

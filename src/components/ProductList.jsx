@@ -7,16 +7,12 @@ export default class ProductList extends Component {
     constructor(props) {
         super(props)
         this.addGoods = this.addGoods.bind(this);
-        this.checkData = this.checkData.bind(this);
 
     }
+
 
     addGoods(goodsId) {
         this.props.addGoods(goodsId);
-
-    }
-
-    checkData() {
 
     }
 
